@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+var program = require('commander')
+var call = require('./lib/call')
+var answer = require('./lib/answer')
+
+program
+  .version('1.0.0')
+  .option('-p, --port [port]', 'which port to call – defaults to 1876')
+  .option('-h, --host [host]', 'which host to call')
+
+program
+  .command('call')
+  .description('watch your filesystem and call when changes occur')
+  .action(function(options) {
+    var port = options.parent.port || 1876
+    if(!options.parent.host) { 
+      console.log('You must specify an IP address')
+      process.exit()
+    }
+    call(options.parent.host, port, ['.'])
+  })
+
+program
+  .command('answer')
+  .description('listen for calls and touches a restart file')
+  .option('-t, --touch [touch]', 'the path to a restart file')
+  .action(function(options) {
+    if(!options.touch) {
+      console.log('You must specifiy a restart file to touch. Eg: `telephone answer -t /path/to/restart`')
+      process.exit()
+    }
+    var port = options.parent.port || 1876
+    var host = options.parent.host || '127.0.0.1'
+    answer(host, port, options.touch)
+  })
+
+program.parse(process.argv)
