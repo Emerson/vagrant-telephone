@@ -5,7 +5,7 @@ var call = require('./lib/call')
 var answer = require('./lib/answer')
 
 program
-  .version('1.0.0')
+  .version('1.0.2')
   .option('-p, --port [port]', 'which port to call – defaults to 1876')
   .option('-h, --host [host]', 'which host to call')
 

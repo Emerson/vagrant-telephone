@@ -1,6 +1,6 @@
 {
   "name": "vagrant-telephone",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The fastest way to notify Vagrant instances of changes",
   "main": "telephone",
   "bin": {
