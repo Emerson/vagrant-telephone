@@ -1,10 +1,10 @@
 {
-  "name": "telephone",
-  "version": "1.0.0",
+  "name": "vagrant-telephone",
+  "version": "1.0.1",
   "description": "The fastest way to notify Vagrant instances of changes",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "telephone",
+  "bin": {
+    "telephone": "./telephone"
   },
   "author": "Emerson R. Lackey",
   "license": "ISC",
