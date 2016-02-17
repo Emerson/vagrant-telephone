@@ -1,6 +1,6 @@
 {
   "name": "vagrant-telephone",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "The fastest way to notify Vagrant instances of changes",
   "main": "telephone",
   "bin": {
@@ -9,6 +9,8 @@
   "author": "Emerson R. Lackey",
   "license": "ISC",
   "dependencies": {
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "gaze": "^0.5.2",
+    "lodash": "^4.3.0"
   }
 }

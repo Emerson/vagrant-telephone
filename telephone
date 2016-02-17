@@ -3,36 +3,47 @@
 var program = require('commander')
 var call = require('./lib/call')
 var answer = require('./lib/answer')
+var path = require('path')
 
 program
-  .version('1.0.2')
-  .option('-p, --port [port]', 'which port to call – defaults to 1876')
-  .option('-h, --host [host]', 'which host to call')
+  .version('1.1.0')
+  .option('-p, --port [port]',     'which port to call – defaults to 1876')
+  .option('-h, --host [host]',     'which host to call')
+  .option('-c, --config [config]', 'path to a telephone.json config file')
 
 program
   .command('call')
   .description('watch your filesystem and call when changes occur')
   .action(function(options) {
+    var config = require(options.parent.config)
+    config.configPath = options.parent.config
     var port = options.parent.port || 1876
-    if(!options.parent.host) { 
-      console.log('You must specify an IP address')
+    var host = null
+    if(config.host) { host = config.host }
+    if(options.parent.host) { host = options.parent.host }
+    if(!host) { 
+      console.log('You must specify an host address')
       process.exit()
+    }else{
+
     }
-    call(options.parent.host, port, ['.'])
+    call(host, port, config)
   })
 
 program
   .command('answer')
   .description('listen for calls and touches a restart file')
-  .option('-t, --touch [touch]', 'the path to a restart file')
+  // .option('-t, --touch [touch]', 'the path to a restart file')
   .action(function(options) {
-    if(!options.touch) {
-      console.log('You must specifiy a restart file to touch. Eg: `telephone answer -t /path/to/restart`')
-      process.exit()
-    }
+    var config = require(options.parent.config)
+
+    // if(!options.touch) {
+    //   console.log('You must specifiy a restart file to touch. Eg: `telephone answer -t /path/to/restart`')
+    //   process.exit()
+    // }
     var port = options.parent.port || 1876
     var host = options.parent.host || '127.0.0.1'
-    answer(host, port, options.touch)
+    answer(host, port, config)
   })
 
 program.parse(process.argv)
